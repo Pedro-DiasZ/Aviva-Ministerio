@@ -17,12 +17,27 @@ except ImportError:  # pragma: no cover - local sqlite fallback without postgres
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
-SQLITE_DB_PATH = Path(os.getenv("AVIVA_DB_PATH", BASE_DIR / "aviva.sqlite3"))
+
+
+def _sqlite_path() -> Path:
+    configured_path = os.getenv("AVIVA_DB_PATH")
+    if configured_path:
+        return Path(configured_path)
+
+    if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        return Path("/tmp/aviva.sqlite3")
+
+    return BASE_DIR / "aviva.sqlite3"
+
+
+SQLITE_DB_PATH = _sqlite_path()
 POSTGRES_URL = (
     os.getenv("SUPABASE_DB_URL")
     or os.getenv("DATABASE_URL")
     or os.getenv("POSTGRES_URL")
     or os.getenv("POSTGRES_URL_NON_POOLING")
+    or os.getenv("POSTGRES_PRISMA_URL")
+    or os.getenv("POSTGRES_URL_NO_SSL")
 )
 
 
@@ -42,6 +57,7 @@ def get_connection():
             raise RuntimeError("Instale psycopg[binary] para usar Supabase/Postgres.")
         return connect(POSTGRES_URL, row_factory=dict_row)
 
+    SQLITE_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(SQLITE_DB_PATH)
     connection.row_factory = sqlite3.Row
     return connection
