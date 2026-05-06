@@ -1,19 +1,24 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 from .database import initialize_database
 from .routers import admin, auth, events
 
 app = FastAPI(title="Aviva Ministerio API", version="1.0.0")
+cors_origins = [
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+]
+
+if os.getenv("AVIVA_FRONTEND_URL"):
+    cors_origins.append(os.getenv("AVIVA_FRONTEND_URL"))
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:5500",
-        "http://localhost:5500",
-        "http://127.0.0.1:8000",
-        "http://localhost:8000",
-    ],
+    allow_origins=cors_origins,
     allow_origin_regex=r"^(http://(127\.0\.0\.1|localhost):\d+|https://.*\.vercel\.app)$",
     allow_credentials=True,
     allow_methods=["*"],

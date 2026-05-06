@@ -5,12 +5,16 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
 try:
     from psycopg import connect
     from psycopg.rows import dict_row
 except ImportError:  # pragma: no cover - local sqlite fallback without postgres deps
     connect = None
     dict_row = None
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
 SQLITE_DB_PATH = Path(os.getenv("AVIVA_DB_PATH", BASE_DIR / "aviva.sqlite3"))

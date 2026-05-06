@@ -9,9 +9,10 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/login", response_model=TokenResponse)
 def login(payload: LoginRequest) -> TokenResponse:
+    email = payload.email.strip().lower()
     user = fetch_one(
         "SELECT id, name, email, password_hash, role FROM users WHERE email = ?",
-        (payload.email.lower(),),
+        (email,),
     )
 
     if not user or not verify_password(payload.password, user["password_hash"]):

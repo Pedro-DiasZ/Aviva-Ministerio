@@ -28,7 +28,7 @@ def verify_password(password: str, password_hash: str) -> bool:
     except ValueError:
       return False
 
-    if algorithm != "pbkdf2_sha256":
+    if algorithm not in {"pbkdf2_sha256", "pkbdf2_sha256"}:
       return False
 
     candidate = hash_password(password, salt).split("$", 2)[2]

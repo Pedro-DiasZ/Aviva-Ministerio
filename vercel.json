@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/auth/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/events(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/admin/events(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/shared/(.*)",
+      "dest": "/shared/$1"
+    },
+    {
+      "src": "/styles-v3.css",
+      "dest": "/styles-v3.css"
+    },
+    {
+      "src": "/script-v3.js",
+      "dest": "/script-v3.js"
+    },
+    {
+      "src": "/community/?",
+      "dest": "/community/index.html"
+    },
+    {
+      "src": "/membros/?",
+      "dest": "/membros/index.html"
+    },
+    {
+      "src": "/membros/eventos/?",
+      "dest": "/membros/eventos/index.html"
+    },
+    {
+      "src": "/membros/cadastro/?",
+      "dest": "/membros/cadastro/index.html"
+    },
+    {
+      "src": "/admin/?",
+      "dest": "/admin/index.html"
+    },
+    {
+      "src": "/admin/eventos/novo/?",
+      "dest": "/admin/eventos/novo/index.html"
+    },
+    {
+      "src": "/admin/eventos/editar/?",
+      "dest": "/admin/eventos/editar/index.html"
+    },
+    {
+      "src": "/index.html",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/?",
+      "dest": "/index.html"
+    }
+  ]
+}
