@@ -19,13 +19,14 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent
 
 
+def _is_serverless_runtime() -> bool:
+    return bool(os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"))
+
+
 def _sqlite_path() -> Path:
     configured_path = os.getenv("AVIVA_DB_PATH")
     if configured_path:
         return Path(configured_path)
-
-    if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
-        return Path("/tmp/aviva.sqlite3")
 
     return BASE_DIR / "aviva.sqlite3"
 
@@ -56,6 +57,11 @@ def get_connection():
         if connect is None:
             raise RuntimeError("Instale psycopg[binary] para usar Supabase/Postgres.")
         return connect(POSTGRES_URL, row_factory=dict_row)
+
+    if _is_serverless_runtime():
+        raise RuntimeError(
+            "Banco Postgres nao configurado. Defina SUPABASE_DB_URL, DATABASE_URL ou POSTGRES_URL na Vercel."
+        )
 
     SQLITE_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(SQLITE_DB_PATH)

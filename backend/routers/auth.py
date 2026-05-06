@@ -28,7 +28,7 @@ def login(payload: LoginRequest) -> TokenResponse:
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 def register(payload: RegisterRequest) -> TokenResponse:
-    email = payload.email.lower()
+    email = payload.email.strip().lower()
     exists = fetch_one("SELECT id FROM users WHERE email = ?", (email,))
     if exists:
         raise HTTPException(status.HTTP_409_CONFLICT, "Este e-mail ja tem cadastro.")
