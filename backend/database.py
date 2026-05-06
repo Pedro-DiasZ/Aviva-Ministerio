@@ -18,7 +18,12 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
 SQLITE_DB_PATH = Path(os.getenv("AVIVA_DB_PATH", BASE_DIR / "aviva.sqlite3"))
-POSTGRES_URL = os.getenv("SUPABASE_DB_URL") or os.getenv("DATABASE_URL")
+POSTGRES_URL = (
+    os.getenv("SUPABASE_DB_URL")
+    or os.getenv("DATABASE_URL")
+    or os.getenv("POSTGRES_URL")
+    or os.getenv("POSTGRES_URL_NON_POOLING")
+)
 
 
 def using_postgres() -> bool:
@@ -66,6 +71,10 @@ def execute(query: str, params: tuple[Any, ...] = ()) -> int:
         cursor = connection.execute(normalized_query, params)
         connection.commit()
         return int(getattr(cursor, "lastrowid", 0) or 0)
+
+
+def _schema_statements(schema: str) -> list[str]:
+    return [statement.strip() for statement in schema.split(";") if statement.strip()]
 
 
 def initialize_database() -> None:
@@ -121,7 +130,8 @@ def initialize_database() -> None:
     with get_connection() as connection:
         if using_postgres():
             with connection.cursor() as cursor:
-                cursor.execute(schema)
+                for statement in _schema_statements(schema):
+                    cursor.execute(statement)
         else:
             connection.executescript(schema)
         connection.commit()
