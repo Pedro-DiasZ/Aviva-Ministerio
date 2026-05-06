@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Membros | Aviva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/members.css">
+</head>
+<body data-page="member-register">
+  <main class="auth-page">
+    <section class="auth-card">
+      <div class="brand-row">
+        <span class="brand-icon"><img class="brand-logo" src="/assets/logo.png" alt=""></span>
+        <strong>Aviva Community</strong>
+      </div>
+      <p class="eyebrow">Cadastro</p>
+      <h1>Crie seu acesso.</h1>
+      <p>Com sua conta, voce acompanha a agenda da comunidade e salva os eventos no calendario do celular ou computador.</p>
+
+      <form class="form-grid" data-register>
+        <label>
+          Nome
+          <input name="name" autocomplete="name" required minlength="2" placeholder="Seu nome">
+        </label>
+        <label>
+          E-mail
+          <input name="email" type="email" autocomplete="email" required placeholder="voce@email.com">
+        </label>
+        <label>
+          Senha
+          <input name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="Minimo de 8 caracteres">
+        </label>
+        <button class="btn btn-primary" type="submit">Criar cadastro</button>
+      </form>
+      <p class="message" role="status"></p>
+      <div class="auth-links">
+        <a href="/community/">Ja tenho conta</a>
+        <a href="/index.html">Voltar ao site</a>
+      </div>
+    </section>
+  </main>
+  <script src="/shared/app.js"></script>
+</body>
+</html>

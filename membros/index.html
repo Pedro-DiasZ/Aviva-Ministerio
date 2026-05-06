@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviva Community | Agenda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/members.css">
+</head>
+<body data-page="member-home">
+  <main class="app-page">
+    <header class="topbar">
+      <a class="brand-row" href="/membros/">
+        <span class="brand-icon"><img class="brand-logo" src="/assets/logo.png" alt=""></span>
+        <strong>Aviva Community</strong>
+      </a>
+      <nav class="nav-links" aria-label="Aviva Community">
+        <a href="/membros/eventos/">Eventos</a>
+        <a href="/index.html">Site</a>
+        <button type="button" data-logout="member">Sair</button>
+      </nav>
+    </header>
+
+    <section class="page-hero">
+      <div class="panel">
+        <p class="eyebrow">Bem-vindo</p>
+        <h1>Agenda viva da missão.</h1>
+        <p>Confira os eventos cadastrados pela equipe e salve cada um na agenda do celular ou computador.</p>
+        <div class="stats-grid">
+          <div class="stat">
+            <strong id="event-count">0</strong>
+            <span class="muted">eventos</span>
+          </div>
+          <div class="stat">
+            <strong id="next-event">-</strong>
+            <span class="muted">próximo</span>
+          </div>
+          <div class="stat">
+            <strong>ICS</strong>
+            <span class="muted">agenda</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="/membros/eventos/">Ver todos os eventos</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="/assets/IMG_6893.jpeg" alt="Integrantes do Ministério Aviva">
+      </div>
+    </section>
+
+    <h2 class="section-title">Próximos eventos</h2>
+    <section class="events-grid" id="events-preview" aria-live="polite"></section>
+  </main>
+  <script src="/shared/app.js"></script>
+</body>
+</html>

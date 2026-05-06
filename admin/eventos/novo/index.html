@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novo evento | Aviva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/members.css">
+</head>
+<body class="admin-theme" data-page="admin-event-form">
+  <main class="app-page">
+    <header class="topbar">
+      <a class="brand-row" href="/admin/">
+        <span class="brand-icon"><img class="brand-logo" src="/assets/logo.png" alt=""></span>
+        <strong>Novo evento</strong>
+      </a>
+      <nav class="nav-links" aria-label="Painel administrativo">
+        <a href="/admin/">Painel</a>
+        <button type="button" data-logout="admin">Sair</button>
+      </nav>
+    </header>
+
+    <section class="form-card">
+      <p class="eyebrow">Cadastro</p>
+      <h1>Criar evento</h1>
+      <form class="form-grid" data-event-form>
+        <div class="form-columns">
+          <label class="full">Título<input name="title" required placeholder="Nome do evento"></label>
+          <label class="full">Descrição<textarea name="description" required placeholder="Resumo para o público"></textarea></label>
+          <label>Data<input name="date" type="date" required></label>
+          <label>Início<input name="start_time" type="time" required></label>
+          <label>Término<input name="end_time" type="time" required></label>
+          <label>Local<input name="location" required placeholder="Paróquia, cidade ou endereço"></label>
+          <label class="full">Foto do evento<input name="image_file" type="file" accept="image/*"></label>
+          <label class="full">Link de imagem opcional<input name="image_url" placeholder="/assets/IMG_6893.jpeg"></label>
+          <img class="image-preview" id="event-image-preview" alt="Prévia da foto do evento" hidden>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Salvar evento</button>
+          <a class="btn btn-secondary" href="/admin/">Cancelar</a>
+        </div>
+      </form>
+      <p class="message" role="status"></p>
+    </section>
+  </main>
+  <script src="/shared/app.js"></script>
+</body>
+</html>

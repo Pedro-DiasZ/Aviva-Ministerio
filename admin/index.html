@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin | Aviva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/members.css">
+</head>
+<body class="admin-theme" data-page="admin-home">
+  <main class="app-page">
+    <header class="topbar">
+      <a class="brand-row" href="/admin/">
+        <span class="brand-icon"><img class="brand-logo" src="/assets/logo.png" alt=""></span>
+        <strong>Aviva Community Admin</strong>
+      </a>
+      <nav class="nav-links" aria-label="Painel administrativo">
+        <a href="/admin/eventos/novo/">Novo evento</a>
+        <a href="/membros/">Ver como usuario</a>
+        <button type="button" data-logout="admin">Sair</button>
+      </nav>
+    </header>
+
+    <section class="page-hero">
+      <div class="panel">
+        <p class="eyebrow">Administração</p>
+        <h1>Eventos do ministério.</h1>
+        <p>Cadastre encontros que aparecerão automaticamente para os usuarios do Aviva Community.</p>
+        <div class="stats-grid">
+          <div class="stat">
+            <strong id="admin-event-count">0</strong>
+            <span class="muted">eventos cadastrados</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="/admin/eventos/novo/">Criar evento</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="/assets/IMG_6495.jpeg" alt="Jovens do Ministério Aviva">
+      </div>
+    </section>
+
+    <h2 class="section-title">Eventos</h2>
+    <section class="table-list" id="admin-events" aria-live="polite"></section>
+  </main>
+  <script src="/shared/app.js"></script>
+</body>
+</html>

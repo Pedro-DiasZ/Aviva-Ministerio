@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviva Comunity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/members.css">
+</head>
+<body class="community-auth" data-page="community-login">
+  <main class="auth-page">
+    <section class="auth-card community-card">
+      <div class="community-brand">
+        <span class="community-logo"><img src="/assets/logo.png" alt=""></span>
+        <h1>Aviva Comunity</h1>
+      </div>
+
+      <form class="form-grid" data-login>
+        <label>
+          E-mail
+          <input name="email" autocomplete="username" required placeholder="adminaviva ou seu e-mail">
+        </label>
+        <label>
+          Senha
+          <input name="password" type="password" autocomplete="current-password" required placeholder="Sua senha">
+        </label>
+        <button class="btn btn-primary" type="submit">Entrar</button>
+      </form>
+      <p class="message" role="status"></p>
+      <div class="auth-links community-links">
+        <a href="/membros/cadastro/">Criar cadastro</a>
+        <a href="/index.html">Voltar ao site</a>
+      </div>
+    </section>
+  </main>
+  <script src="/shared/app.js"></script>
+</body>
+</html>

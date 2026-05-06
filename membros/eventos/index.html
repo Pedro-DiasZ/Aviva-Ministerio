@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventos | Aviva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/members.css">
+</head>
+<body data-page="member-events">
+  <main class="app-page">
+    <header class="topbar">
+      <a class="brand-row" href="/membros/">
+        <span class="brand-icon"><img class="brand-logo" src="/assets/logo.png" alt=""></span>
+        <strong>Eventos Aviva</strong>
+      </a>
+      <nav class="nav-links" aria-label="Aviva Community">
+        <a href="/membros/">Início</a>
+        <button type="button" data-logout="member">Sair</button>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <p class="eyebrow">Agenda</p>
+      <h1>Eventos cadastrados</h1>
+      <p class="muted">Toque em "Adicionar à agenda" para baixar um arquivo compatível com Google Agenda, Apple Calendar e Outlook.</p>
+    </section>
+
+    <h2 class="section-title">Lista de eventos</h2>
+    <section class="events-grid" id="events-list" aria-live="polite"></section>
+  </main>
+  <script src="/shared/app.js"></script>
+</body>
+</html>
