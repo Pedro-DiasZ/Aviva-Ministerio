@@ -44,6 +44,7 @@ body.is-loading {
 img {
   display: block;
   max-width: 100%;
+  image-rendering: auto;
 }
 
 a {
@@ -296,6 +297,7 @@ h3,
 
 .hero-poster,
 .image-feature,
+.shirt-showcase,
 .story-mosaic,
 .events-hero,
 .events-teaser,
@@ -321,7 +323,7 @@ h3,
   min-height: inherit;
   object-fit: cover;
   object-position: 52% 40%;
-  filter: saturate(0.95) contrast(1.1);
+  filter: saturate(1.04) contrast(1.02);
 }
 
 .hero-poster::after,
@@ -331,7 +333,7 @@ h3,
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 38%, rgba(8, 8, 8, 0.88));
+  background: linear-gradient(180deg, transparent 54%, rgba(8, 8, 8, 0.72));
   pointer-events: none;
 }
 
@@ -444,6 +446,7 @@ h3,
   min-height: inherit;
   object-fit: cover;
   object-position: 50% 44%;
+  filter: saturate(1.04) contrast(1.02);
 }
 
 .image-feature > div {
@@ -452,6 +455,53 @@ h3,
   left: 1.2rem;
   right: 1.2rem;
   bottom: 1.2rem;
+}
+
+.shirt-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+  gap: 1rem;
+  align-items: stretch;
+  margin-top: 1rem;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(116, 24, 40, 0.18)),
+    rgba(255, 255, 255, 0.055);
+}
+
+.shirt-media {
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.shirt-media img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: 52% 61%;
+  filter: saturate(1.08) contrast(1.03);
+}
+
+.shirt-copy {
+  align-self: center;
+  padding: clamp(1.35rem, 4vw, 2.4rem);
+}
+
+.shirt-copy h2 {
+  margin-top: 0.35rem;
+  font-size: clamp(2.8rem, 6.4vw, 6rem);
+  text-transform: uppercase;
+}
+
+.shirt-copy p:not(.eyebrow) {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.shirt-copy .btn {
+  margin-top: 1.5rem;
 }
 
 .split-story {
@@ -486,6 +536,7 @@ h3,
   min-height: 408px;
   object-fit: cover;
   border-radius: 6px;
+  filter: saturate(1.04) contrast(1.02);
 }
 
 .story-mosaic img:last-child {
@@ -726,6 +777,7 @@ h3,
   .hero-grid,
   .mission-band,
   .content-grid,
+  .shirt-showcase,
   .split-story,
   .events-hero,
   .events-grid {
@@ -737,6 +789,10 @@ h3,
   }
 
   .hero-poster {
+    min-height: 560px;
+  }
+
+  .shirt-media {
     min-height: 560px;
   }
 
@@ -790,6 +846,10 @@ h3,
 
   .story-mosaic {
     grid-template-columns: 1fr;
+  }
+
+  .shirt-media {
+    min-height: 430px;
   }
 
   .story-mosaic img,
