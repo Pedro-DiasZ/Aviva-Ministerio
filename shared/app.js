@@ -22,6 +22,22 @@ const setMessage = (text, isError = false) => {
   message.classList.toggle("error", isError);
 };
 
+const showLoginGreeting = (name) => {
+  const greeting = $("[data-login-greeting]");
+  if (!greeting) {
+    setMessage(`Ola, ${name}`);
+    return;
+  }
+
+  const nameTarget = $("[data-login-name]", greeting);
+  if (nameTarget) nameTarget.textContent = name;
+
+  greeting.hidden = false;
+  $("form[data-login]")?.setAttribute("hidden", "");
+  $(".auth-links")?.setAttribute("hidden", "");
+  setMessage("");
+};
+
 const request = async (path, options = {}) => {
   let response;
 
@@ -95,15 +111,23 @@ const login = async () => {
         body: JSON.stringify({ email: data.email, password: data.password }),
       });
 
+      const userName = payload.name || data.email;
+      localStorage.setItem("aviva_user_name", userName);
+      showLoginGreeting(userName);
+
+      const redirectTo = payload.role === "admin" ? "/admin/" : "/membros/";
+
       if (payload.role === "admin") {
         localStorage.setItem("aviva_admin_token", payload.access_token);
         localStorage.removeItem("aviva_member_token");
-        window.location.href = "/admin/";
       } else {
         localStorage.setItem("aviva_member_token", payload.access_token);
         localStorage.removeItem("aviva_admin_token");
-        window.location.href = "/membros/";
       }
+
+      window.setTimeout(() => {
+        window.location.href = redirectTo;
+      }, 900);
     } catch (error) {
       setMessage(error.message, true);
     }
@@ -130,6 +154,7 @@ const registerMember = async () => {
         }),
       });
       localStorage.setItem("aviva_member_token", payload.access_token);
+      localStorage.setItem("aviva_user_name", payload.name || data.name);
       window.location.href = "/membros/";
     } catch (error) {
       setMessage(error.message, true);
@@ -140,10 +165,12 @@ const registerMember = async () => {
 const logout = (role) => {
   if (role === "admin") {
     localStorage.removeItem("aviva_admin_token");
+    localStorage.removeItem("aviva_user_name");
     window.location.href = "/community/";
     return;
   }
   localStorage.removeItem("aviva_member_token");
+  localStorage.removeItem("aviva_user_name");
   window.location.href = "/community/";
 };
 
