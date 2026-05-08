@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 
-from ..auth import create_token, hash_password, verify_password
-from ..database import execute, fetch_one
+from ..auth import create_token, verify_password
+from ..database import fetch_one
 from ..schemas import LoginRequest, RegisterRequest, TokenResponse
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -28,23 +28,7 @@ def login(payload: LoginRequest) -> TokenResponse:
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 def register(payload: RegisterRequest) -> TokenResponse:
-    email = payload.email.strip().lower()
-    exists = fetch_one("SELECT id FROM users WHERE email = ?", (email,))
-    if exists:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Este e-mail ja tem cadastro.")
-
-    user_id = execute(
-        "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)",
-        (payload.name.strip(), email, hash_password(payload.password), "member"),
-    )
-    user_data = {
-        "id": user_id,
-        "name": payload.name.strip(),
-        "email": email,
-        "role": "member",
-    }
-    return TokenResponse(
-        access_token=create_token(user_data),
-        role="member",
-        name=user_data["name"],
+    raise HTTPException(
+        status.HTTP_403_FORBIDDEN,
+        "Cadastro direto desativado. Envie sua solicitacao para o admin.",
     )

@@ -24,6 +24,10 @@
       "dest": "api/index.py"
     },
     {
+      "src": "/admin/members(.*)",
+      "dest": "api/index.py"
+    },
+    {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
     },

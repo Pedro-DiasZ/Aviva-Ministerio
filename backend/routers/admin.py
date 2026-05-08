@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 
-from ..auth import require_admin
+from ..auth import hash_password, require_admin
 from ..database import execute, fetch_all, fetch_one
 from ..models import CREATE_EVENT_QUERY, EVENT_FIELDS, UPDATE_EVENT_QUERY
-from ..schemas import EventCreate, EventOut, EventUpdate
+from ..schemas import EventCreate, EventOut, EventUpdate, MemberCreate, MemberOut
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -22,6 +22,21 @@ def row_to_event(row) -> EventOut:
 def list_admin_events(_: dict = Depends(require_admin)) -> list[EventOut]:
     rows = fetch_all(f"SELECT {EVENT_FIELDS} FROM events ORDER BY date ASC, start_time ASC")
     return [row_to_event(row) for row in rows]
+
+
+@router.post("/members", response_model=MemberOut, status_code=status.HTTP_201_CREATED)
+def create_member(payload: MemberCreate, _: dict = Depends(require_admin)) -> MemberOut:
+    email = payload.email.strip().lower()
+    exists = fetch_one("SELECT id FROM users WHERE email = ?", (email,))
+    if exists:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Este e-mail ja tem cadastro.")
+
+    member_id = execute(
+        "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)",
+        (payload.name.strip(), email, hash_password(payload.password), "member"),
+    )
+    row = fetch_one("SELECT id, name, email, role FROM users WHERE id = ?", (member_id,))
+    return MemberOut(**dict(row))
 
 
 @router.get("/events/{event_id}", response_model=EventOut)

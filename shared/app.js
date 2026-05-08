@@ -169,12 +169,49 @@ const bindMemberInterest = () => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
-    localStorage.setItem("aviva_member_interest", JSON.stringify({
-      ...data,
-      created_at: new Date().toISOString(),
-    }));
-    form.reset();
-    setMessage("Recebemos seu interesse. Em breve a equipe entra em contato.");
+    const message = [
+      "Olá, quero fazer parte do Aviva!",
+      "",
+      `Nome: ${data.name}`,
+      `E-mail: ${data.email}`,
+      `WhatsApp: ${data.phone}`,
+      `Paróquia/comunidade: ${data.community || "Nao informado"}`,
+      "",
+      `Mensagem: ${data.message || "Nao informado"}`,
+    ].join("\n");
+    const url = `https://wa.me/5511941157120?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+    setMessage("Abrimos o WhatsApp com sua solicitação pronta para envio.");
+  });
+};
+
+const bindAdminMemberForm = () => {
+  const form = $("form[data-admin-member-form]");
+  if (!form) return;
+
+  const token = protect("admin");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    setMessage("Criando membro...");
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      const member = await request("/admin/members", {
+        method: "POST",
+        token,
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+      form.reset();
+      setMessage(`Membro ${member.name} criado com sucesso.`);
+    } catch (error) {
+      setMessage(error.message, true);
+    }
   });
 };
 
@@ -385,6 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (page === "community-login" || page === "member-login" || page === "admin-login") login();
   if (page === "member-register") registerMember();
   bindMemberInterest();
+  if (page === "admin-home") bindAdminMemberForm();
   if (page === "member-home") loadMemberHome();
   if (page === "member-events" || page === "public-events") loadEvents();
   if (page === "admin-home") loadAdmin();

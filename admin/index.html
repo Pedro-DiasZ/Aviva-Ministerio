@@ -39,8 +39,32 @@
         </div>
       </div>
       <div class="hero-media">
-        <img src="/assets/IMG_6495.jpeg" alt="Jovens do Ministério Aviva">
+        <img src="/assets/optimized/IMG_6495.jpeg" alt="Jovens do Ministério Aviva">
       </div>
+    </section>
+
+    <section class="form-card">
+      <p class="eyebrow">Membros</p>
+      <h1>Criar membro</h1>
+      <p class="muted">Crie o acesso depois de aprovar a solicitação recebida pelo WhatsApp.</p>
+      <form class="form-grid form-columns" data-admin-member-form>
+        <label>
+          Nome
+          <input name="name" autocomplete="name" required minlength="2" placeholder="Nome do membro">
+        </label>
+        <label>
+          E-mail
+          <input name="email" type="email" autocomplete="email" required placeholder="membro@email.com">
+        </label>
+        <label>
+          Senha provisória
+          <input name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="Minimo de 8 caracteres">
+        </label>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Criar membro</button>
+        </div>
+      </form>
+      <p class="message" role="status"></p>
     </section>
 
     <h2 class="section-title">Eventos</h2>
