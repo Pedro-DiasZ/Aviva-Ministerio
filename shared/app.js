@@ -162,6 +162,22 @@ const registerMember = async () => {
   });
 };
 
+const bindMemberInterest = () => {
+  const form = $("form[data-member-interest]");
+  if (!form) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+    localStorage.setItem("aviva_member_interest", JSON.stringify({
+      ...data,
+      created_at: new Date().toISOString(),
+    }));
+    form.reset();
+    setMessage("Recebemos seu interesse. Em breve a equipe entra em contato.");
+  });
+};
+
 const logout = (role) => {
   if (role === "admin") {
     localStorage.removeItem("aviva_admin_token");
@@ -368,6 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if ($("#events-preview") && !page) renderEvents({ containerId: "events-preview", limit: 3 });
   if (page === "community-login" || page === "member-login" || page === "admin-login") login();
   if (page === "member-register") registerMember();
+  bindMemberInterest();
   if (page === "member-home") loadMemberHome();
   if (page === "member-events" || page === "public-events") loadEvents();
   if (page === "admin-home") loadAdmin();

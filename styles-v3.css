@@ -95,7 +95,7 @@ h3,
   justify-items: center;
   background:
     linear-gradient(90deg, rgba(8, 8, 8, 0.82), rgba(75, 16, 25, 0.72)),
-    url("./assets/IMG_6893.jpeg") center 42% / cover;
+    url("./assets/optimized/IMG_6893.jpeg") center 42% / cover;
   transition: opacity 520ms ease, visibility 520ms ease;
 }
 
@@ -300,7 +300,6 @@ h3,
 .shirt-showcase,
 .story-mosaic,
 .events-hero,
-.events-teaser,
 .instagram-panel,
 .mission-band,
 .info-card,
@@ -388,7 +387,6 @@ h3,
 
 .mission-band h2,
 .instagram-panel h2,
-.events-teaser h2,
 .split-story h2,
 .events-hero h1 {
   margin-top: 0.35rem;
@@ -543,7 +541,6 @@ h3,
   object-position: 50% 18%;
 }
 
-.events-teaser,
 .instagram-panel {
   margin-top: 1rem;
   padding: 1.2rem;
